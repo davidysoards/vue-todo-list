@@ -39,8 +39,8 @@
         <div class="columns is-centered">
           <div class="column">
             <h2 class="title is-2">Todo</h2>
-            <ul class="todo" v-for="task in tasks" :key="task.id">
-              <li class="card" v-if="task.status == 0">
+            <ul class="todo">
+              <li class="card" v-for="task in todos" :key="task.id">
                 <div class="card-content">
                   <div class="content">{{task.description}}</div>
                 </div>
@@ -53,8 +53,8 @@
 
           <div class="column">
             <h2 class="title is-2">Done</h2>
-            <ul class="todo" v-for="task in tasks" :key="task.id">
-              <li class="card" v-if="task.status == 1">
+            <ul class="todo">
+              <li class="card" v-for="task in dones" :key="task.id">
                 <div class="card-content done">
                   <div class="content">{{task.description}}</div>
                 </div>
@@ -87,6 +87,14 @@ export default {
       description: "",
       status: 0
     };
+  },
+  computed: {
+    todos() {
+      return this.tasks.filter(task => task.status === 0);
+    },
+    dones() {
+      return this.tasks.filter(task => task.status === 1);
+    }
   },
   mounted() {
     this.getTasks();
